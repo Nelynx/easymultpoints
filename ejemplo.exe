@@ -1,0 +1,9 @@
+LIB"easymultpoints.lib";
+
+ring r = 0,(x,y,z,a,b,c),ds;
+
+ideal vars = a,b,c;
+
+dk(yz+z4,xz+z3,z, vars);
+
+quit;

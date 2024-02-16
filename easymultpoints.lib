@@ -1,0 +1,30 @@
+//////////////////////////////////////////////////////////////////////////////
+version="$Id: easymultpoints.lib 1.0 Feb_2024 $";
+category="Miscellaneous";
+info="
+LIBRARY:  easymultpoints.lib
+AUTHORS:  Nacho"
+
+LIB "polylib.lib";
+//////////////////////////////////////////////////////////////////////////////
+
+proc dk(poly f1,poly f2, poly y, ideal vars)
+{
+    list eqs = f1,f2;
+    ideal eqs_prev = f1,f2;
+    ideal eqs_new = 0;
+    poly f = 0;
+    for (int i=1; i <= size(vars); i=i+1)
+    {
+        for(int j=1; j <= size(eqs_prev); j=j+1)
+        {
+            f = (eqs_prev[j] -subst(eqs_prev[j],y,vars[i]))/(y-vars[i]);
+            eqs_new = eqs_new + ideal(f);
+            print(f);
+        }
+        eqs_prev = eqs_new;
+        eqs = eqs + list(eqs_new);
+        eqs_new = 0;
+    }
+    return(eqs);
+}
